@@ -13,6 +13,9 @@ environment:
 before_build:
   - cmd: git clone --depth=1 https://github.com/BeamMW/libs.git c:/beam-libs
   - cmd: git clone --depth=1 https://github.com/nesbox/qt5-static-win.git c:/beam-libs/qt5-static-win
+  - cmd: echo =====================
+  - cmd: echo %APPVEYOR_REPO_BRANCH%
+  - cmd: echo =====================
   - cmd: cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=%BUILD_CONFIG% -DBEAM_LINK_TYPE=Static -DBRANCH_NAME=%APPVEYOR_REPO_BRANCH% -DBEAM_BUILD_JNI=On .
 
 test_script:
@@ -94,20 +97,7 @@ artifacts:
   - path: Beam-Wallet-%BEAM_VERSION%.exe
     name: BeamWallet
 
-deploy:
-  provider: S3
-  access_key_id:
-    secure: J8+/d4TSbhxiaFlDQopFzKbfLPvUy1rMUJlAgnfbBNE=
-  secret_access_key:
-    secure: sqF9zdsuUm/k9QzY46s250MZJamHjKrwBCAPbinBA/iOJlgLsHC7lq1F5pTr/B+U
-  bucket: builds.beam.mw
-  region: us-west-2
-  unzip: false
-  set_public: true
-  folder: "%APPVEYOR_REPO_BRANCH%/%DATE%/Release/win/"
-  artifact: BeamPdb, BeamWalletApi, BeamNodeExplorer, BeamWalletCli, BeamNode, BeamWallet
-
 notifications:
   - provider: Email
     to:
-      - big.romanov@gmail.com
+      - 23715018@qq.com
