@@ -916,6 +916,7 @@ void Node::Keys::SetSingleKey(const Key::IKdf::Ptr& pKdf)
 void Node::Initialize(IExternalPOW* externalPOW)
 {
     m_Processor.m_Horizon = m_Cfg.m_Horizon;
+    //@@@ Processor初始化NodeProcessor::Initialize 文件node/processor.cpp
     m_Processor.Initialize(m_Cfg.m_sPathLocal.c_str(), m_Cfg.m_ProcessorParams);
 
     if (m_Cfg.m_VerificationThreads < 0)
@@ -931,6 +932,7 @@ void Node::Initialize(IExternalPOW* externalPOW)
 
 	if (!m_Cfg.m_Treasury.empty() && !m_Processor.IsTreasuryHandled()) {
 		// stupid compiler insists on parentheses here!
+		LOG_INFO() << "@@@ OnTreasury...";
 		m_Processor.OnTreasury(Blob(m_Cfg.m_Treasury));
 	}
 

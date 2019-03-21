@@ -284,11 +284,12 @@ int main_impl(int argc, char* argv[])
 					}
 
 					LOG_INFO() << "starting a node on " << node.m_Cfg.m_Listen.port() << " port...";
-//读取TREASURY
+//@@@ 读取TREASURY
 					if (vm.count(cli::TREASURY_BLOCK))
 					{
 						string sPath = vm[cli::TREASURY_BLOCK].as<string>();
-						LOG_INFO() << "TREASURY BLOCK File path:" << sPath;
+						LOG_INFO() << "@@@ TREASURY BLOCK File path:" << sPath;
+						//@@@ 读取treasury.bin文件
 						if (!ReadTreasury(node.m_Cfg.m_Treasury, sPath))
 							node.m_Cfg.m_Treasury.clear();
 						else
@@ -309,7 +310,7 @@ int main_impl(int argc, char* argv[])
 					node.m_Cfg.m_Horizon.m_Branching = Rules::get().Macroblock.MaxRollback / 4; // inferior branches would be pruned when height difference is this.
 					node.m_Cfg.m_Horizon.m_SchwarzschildHi = vm[cli::HORIZON_HI].as<Height>();
 					node.m_Cfg.m_Horizon.m_SchwarzschildLo = vm[cli::HORIZON_LO].as<Height>();
-
+//@@@ node初始化,Node::Initialize 文件node/node.cpp
 					node.Initialize(stratumServer.get());
 
 					io::Timer::Ptr pCrashTimer;
