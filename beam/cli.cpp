@@ -283,9 +283,6 @@ int main_impl(int argc, char* argv[])
 						}
 					}
 
-					node.m_Cfg.m_HistoryCompression.m_sPathOutput = vm[cli::HISTORY].as<string>();
-					node.m_Cfg.m_HistoryCompression.m_sPathTmp = vm[cli::TEMP].as<string>();
-
 					LOG_INFO() << "starting a node on " << node.m_Cfg.m_Listen.port() << " port...";
 
 					if (vm.count(cli::TREASURY_BLOCK))
@@ -308,11 +305,11 @@ int main_impl(int argc, char* argv[])
 
 					node.m_Cfg.m_Bbs = vm[cli::BBS_ENABLE].as<bool>();
 
-					node.Initialize(stratumServer.get());
+					node.m_Cfg.m_Horizon.m_Branching = Rules::get().Macroblock.MaxRollback / 4; // inferior branches would be pruned when height difference is this.
+					node.m_Cfg.m_Horizon.m_SchwarzschildHi = vm[cli::HORIZON_HI].as<Height>();
+					node.m_Cfg.m_Horizon.m_SchwarzschildLo = vm[cli::HORIZON_LO].as<Height>();
 
-					Height hImport = vm[cli::IMPORT].as<Height>();
-					if (hImport)
-						node.ImportMacroblock(hImport);
+					node.Initialize(stratumServer.get());
 
 					io::Timer::Ptr pCrashTimer;
 
