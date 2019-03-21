@@ -169,11 +169,11 @@ int main_impl(int argc, char* argv[])
 			po::notify(vm);
 
 			unsigned logCleanupPeriod = vm[cli::LOG_CLEANUP_DAYS].as<uint32_t>() * 24 * 3600;
-
+			//清理多少天前的日志文件
 			clean_old_logfiles(LOG_FILES_DIR, LOG_FILES_PREFIX, logCleanupPeriod);
 
 			Rules::get().UpdateChecksum();
-            LOG_INFO() << "Beam Node " << PROJECT_VERSION << " (" << BRANCH_NAME << ")";
+            LOG_INFO() << "TSL Node " << PROJECT_VERSION << " (" << BRANCH_NAME << ")";
 			LOG_INFO() << "Rules signature: " << Rules::get().Checksum;
 
 			auto port = vm[cli::PORT].as<uint16_t>();
@@ -284,10 +284,11 @@ int main_impl(int argc, char* argv[])
 					}
 
 					LOG_INFO() << "starting a node on " << node.m_Cfg.m_Listen.port() << " port...";
-
+//读取TREASURY
 					if (vm.count(cli::TREASURY_BLOCK))
 					{
 						string sPath = vm[cli::TREASURY_BLOCK].as<string>();
+						LOG_INFO() << "TREASURY BLOCK File path:" << sPath;
 						if (!ReadTreasury(node.m_Cfg.m_Treasury, sPath))
 							node.m_Cfg.m_Treasury.clear();
 						else
