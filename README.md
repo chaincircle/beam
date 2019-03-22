@@ -81,6 +81,5 @@ years.
 See [How to build](https://github.com/BeamMW/beam/wiki/How-to-build)
 
 # Build status
-[![Build Status](https://travis-ci.org/BeamMW/beam.svg?branch=master)](https://travis-ci.org/BeamMW/beam)
-[![Build status](https://ci.appveyor.com/api/projects/status/0j424l1h61gwqddm/branch/master?svg=true)](https://ci.appveyor.com/project/beam-mw/beam/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/afpi419o7v2yflan/branch/master?svg=true)](https://ci.appveyor.com/project/buyucoder/beam/branch/master)
 
