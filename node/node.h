@@ -88,7 +88,7 @@ struct Node
 
 		struct TestMode {
 			// for testing only!
-			uint32_t m_FakePowSolveTime_ms = 1 * 500;
+			uint32_t m_FakePowSolveTime_ms = 2 * 1000;
 
 		} m_TestMode;
 
