@@ -128,7 +128,7 @@ namespace beam
 		{
 			Height m_Maturity0 = 0;
 			Height m_MaturityStep = 1440 * 365 / 365; // 1 month roughly 修改为1天1周期
-			uint32_t m_Bursts = 365 * 5; // 5 years plan
+			uint32_t m_Bursts = 12 * 5; // 5 years plan
 
 		};
 
