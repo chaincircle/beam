@@ -2078,7 +2078,10 @@ NodeProcessor::DataStatus::Enum NodeProcessor::OnBlock(const NodeDB::StateID& si
 NodeProcessor::DataStatus::Enum NodeProcessor::OnTreasury(const Blob& blob)
 {
 	if (Rules::get().TreasuryChecksum == Zero)
+	{
+		LOG_INFO() << "@@@ TreasuryChecksum 1:" << Rules::get().TreasuryChecksum;
 		return DataStatus::Invalid; // should be no treasury
+	}
 
 	ECC::Hash::Value hv;
 	ECC::Hash::Processor()
@@ -2086,13 +2089,25 @@ NodeProcessor::DataStatus::Enum NodeProcessor::OnTreasury(const Blob& blob)
 		>> hv;
 
 	if (Rules::get().TreasuryChecksum != hv)
+	{
+		LOG_INFO() << "@@@ TreasuryChecksum 2:" << Rules::get().TreasuryChecksum;
+		LOG_INFO() << "@@@ hv:" << hv;
 		return DataStatus::Invalid;
+	}
+
 
 	if (IsTreasuryHandled())
+	{
+		LOG_INFO() << "@@@ Treasury Rejected";
 		return DataStatus::Rejected;
+	}
+
 
 	if (!HandleTreasury(blob))
+	{
+		LOG_INFO() << "@@@ Treasury Invalid 3";
 		return DataStatus::Invalid;
+	}
 
 	m_Extra.m_Txos++;
 	m_Extra.m_TxosTreasury = m_Extra.m_Txos;
